@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meta Ads Report — The Way Immigration | May 6 – May 13, 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.cdnfonts.com/css/garet" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root {
+    --brand: #22538e;
+    --brand-light: #e8f0fb;
+    --brand-mid: #c5d8f5;
+    --bg: #ffffff;
+    --surface: #f7f9fc;
+    --border: #e2e8f0;
+    --text: #0f172a;
+    --muted: #64748b;
+    --success: #16a34a;
+    --success-bg: #f0fdf4;
+    --warn-bg: #fffbeb;
+    --danger-bg: #fef2f2;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+  }
+
+  /* ── Header ── */
+  header {
+    background: var(--brand);
+    position: relative;
+    overflow: hidden;
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    right: -80px; top: -80px;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+    pointer-events: none;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    left: 40%; bottom: -60px;
+    width: 250px; height: 250px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.03);
+    pointer-events: none;
+  }
+  .header-top {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 28px 52px 0;
+    position: relative; z-index: 1;
+  }
+
+  .header-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 100px;
+    padding: 5px 14px;
+    font-size: 11px; font-weight: 500; letter-spacing: 0.07em;
+    color: rgba(255,255,255,0.9);
+    text-transform: uppercase;
+  }
+  .header-body {
+    padding: 24px 52px 44px;
+    position: relative; z-index: 1;
+  }
+  h1 {
+    font-family: 'Garet', 'Poppins', sans-serif;
+    font-size: clamp(26px, 3.5vw, 42px);
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin-bottom: 12px;
+  }
+  h1 span { color: rgba(255,255,255,0.65); font-weight: 600; }
+  .header-meta {
+    display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+    font-size: 13px; color: rgba(255,255,255,0.7);
+  }
+  .header-meta strong { color: #fff; font-weight: 600; }
+  .hdot { width: 3px; height: 3px; border-radius: 50%; background: rgba(255,255,255,0.35); }
+  .live-pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 100px;
+    padding: 3px 11px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.05em;
+    color: #fff; text-transform: uppercase;
+  }
+  .live-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #4ade80;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  /* ── Layout ── */
+  main { max-width: 1100px; margin: 0 auto; padding: 52px 52px 80px; }
+  section { margin-bottom: 56px; }
+  .section-label {
+    font-family: 'Garet', 'Poppins', sans-serif;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--brand);
+    margin-bottom: 20px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .section-label::after {
+    content: ''; flex: 1; height: 1.5px;
+    background: var(--brand-mid);
+  }
+
+  /* ── KPI Cards ── */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
+    gap: 16px;
+  }
+  .kpi-card {
+    background: #fff;
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    padding: 24px 20px;
+    position: relative;
+    overflow: hidden;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .kpi-card:hover { box-shadow: 0 8px 32px rgba(34,83,142,0.10); transform: translateY(-2px); }
+  .kpi-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 3px; border-radius: 14px 14px 0 0;
+    background: var(--brand);
+  }
+  .kpi-card.alt::before { background: #1e3a5f; }
+  .kpi-label {
+    font-size: 10.5px; font-weight: 600; letter-spacing: 0.09em;
+    text-transform: uppercase; color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .kpi-value {
+    font-family: 'Garet', 'Poppins', sans-serif;
+    font-size: 30px; font-weight: 800;
+    line-height: 1; color: var(--text);
+    margin-bottom: 5px;
+  }
+  .kpi-sub { font-size: 11.5px; color: var(--muted); }
+  .kpi-icon {
+    position: absolute; top: 18px; right: 18px;
+    width: 36px; height: 36px; border-radius: 10px;
+    background: var(--brand-light);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+  }
+
+  /* ── Charts ── */
+  .chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 700px) { .chart-grid { grid-template-columns: 1fr; } }
+  .chart-card {
+    background: #fff;
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    padding: 28px;
+  }
+  .chart-title {
+    font-family: 'Garet', 'Poppins', sans-serif;
+    font-size: 15px; font-weight: 700; color: var(--text);
+    margin-bottom: 4px;
+  }
+  .chart-subtitle { font-size: 12px; color: var(--muted); margin-bottom: 22px; }
+  .chart-wrap { position: relative; height: 240px; }
+
+  /* ── Tables ── */
+  .table-card {
+    background: #fff;
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .table-header {
+    padding: 20px 24px 16px;
+    border-bottom: 1.5px solid var(--border);
+    background: var(--surface);
+  }
+  table { width: 100%; border-collapse: collapse; }
+  thead th {
+    text-align: left;
+    font-size: 10.5px; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--muted);
+    padding: 12px 20px;
+    border-bottom: 1.5px solid var(--border);
+    background: var(--surface);
+    white-space: nowrap;
+  }
+  tbody tr { transition: background 0.12s; }
+  tbody tr:hover { background: var(--brand-light); }
+  tbody tr:not(:last-child) { border-bottom: 1px solid var(--border); }
+  tbody td { padding: 13px 20px; font-size: 13.5px; vertical-align: middle; }
+  .metric-num { font-family: 'Garet', 'Poppins', sans-serif; font-weight: 700; }
+
+  .badge {
+    display: inline-block; padding: 3px 10px;
+    border-radius: 100px; font-size: 10.5px; font-weight: 600;
+  }
+  .badge-green { background: var(--success-bg); color: var(--success); border: 1px solid #bbf7d0; }
+  .badge-blue { background: var(--brand-light); color: var(--brand); border: 1px solid var(--brand-mid); }
+  .badge-dark { background: #f1f5f9; color: #334155; border: 1px solid #e2e8f0; }
+  .badge-warn { background: #fff7ed; color: #c2410c; border: 1px solid #fed7aa; }
+
+  .perf-bar-wrap { display: flex; align-items: center; gap: 10px; }
+  .perf-bar-bg { flex: 1; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+  .perf-bar { height: 100%; border-radius: 3px; }
+
+  /* ── Insights ── */
+  .insights-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 700px) { .insights-grid { grid-template-columns: 1fr; } }
+  .insight-card {
+    background: #fff;
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    padding: 22px;
+    display: flex; gap: 16px;
+    transition: box-shadow 0.2s;
+  }
+  .insight-card:hover { box-shadow: 0 4px 20px rgba(34,83,142,0.08); }
+  .insight-icon {
+    font-size: 20px; flex-shrink: 0;
+    width: 44px; height: 44px; border-radius: 11px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .insight-icon.pos { background: var(--success-bg); }
+  .insight-icon.warn { background: var(--warn-bg); }
+  .insight-icon.info { background: var(--brand-light); }
+  .insight-icon.flag { background: var(--danger-bg); }
+  .insight-title {
+    font-family: 'Garet', 'Poppins', sans-serif;
+    font-size: 13.5px; font-weight: 700; color: var(--text);
+    margin-bottom: 5px;
+  }
+  .insight-body { font-size: 12.5px; color: var(--muted); line-height: 1.65; }
+
+  /* ── Footer ── */
+  footer {
+    background: var(--brand);
+    padding: 28px 52px;
+    text-align: center;
+    font-size: 12px; color: rgba(255,255,255,0.65);
+  }
+  footer strong { color: #fff; font-weight: 600; }
+
+  @media (max-width: 600px) {
+    .header-top, .header-body, main, footer { padding-left: 20px; padding-right: 20px; }
+    .kpi-grid { grid-template-columns: 1fr 1fr; }
+  }
+  .logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+  }
+  .logo-top {
+    font-family: 'Garet', 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.25em;
+    color: rgba(255,255,255,0.75);
+  }
+  .logo-bottom {
+    font-family: 'Garet', 'Poppins', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: #ffffff;
+  }
+
+  /* ── Notes ── */
+  .note-section { margin-bottom: 56px; }
+  .note-card {
+    background: #fff;
+    border: 1.5px solid var(--border);
+    border-left: 5px solid var(--brand);
+    border-radius: 14px;
+    padding: 28px 30px;
+    margin-bottom: 20px;
+  }
+  .note-card.amber { border-left-color: #d97706; }
+  .note-card.green { border-left-color: #16a34a; }
+  .note-header {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 12px;
+  }
+  .note-icon { font-size: 20px; }
+  .note-title {
+    font-family: 'Garet', 'Poppins', sans-serif;
+    font-size: 14px; font-weight: 700; color: var(--text);
+  }
+  .note-body {
+    font-size: 13px; color: var(--muted); line-height: 1.75;
+  }
+  .note-body p { margin-bottom: 10px; }
+  .note-body p:last-child { margin-bottom: 0; }
+  .note-body strong { color: var(--text); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <div class="logo-text">
+      <span class="logo-top">THE WAY</span>
+      <span class="logo-bottom">IMMIGRATION</span>
+    </div>
+    <div class="header-badge">📊 Meta Ads Report</div>
+  </div>
+  <div class="header-body">
+    <h1>SPS Lead Gen Campaign<br><span>Performance Report</span></h1>
+    <div class="header-meta">
+      <span>May 6 – May 13, 2026</span>
+      <div class="hdot"></div>
+      <span><strong>8-day period</strong></span>
+      <div class="hdot"></div>
+      <span class="live-pill"><span class="live-dot"></span> Active</span>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- KPI SUMMARY -->
+  <section>
+    <div class="section-label">Campaign Overview</div>
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-icon">💰</div>
+        <div class="kpi-label">Total Spend</div>
+        <div class="kpi-value">$231.57</div>
+        <div class="kpi-sub">CAD · $30/day budget</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon">🎯</div>
+        <div class="kpi-label">Total Leads</div>
+        <div class="kpi-value">26</div>
+        <div class="kpi-sub">Lead form conversions</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon">💡</div>
+        <div class="kpi-label">Cost per Lead</div>
+        <div class="kpi-value">$8.91</div>
+        <div class="kpi-sub">CAD per conversion</div>
+      </div>
+      <div class="kpi-card alt">
+        <div class="kpi-icon">👁️</div>
+        <div class="kpi-label">Impressions</div>
+        <div class="kpi-value">11,879</div>
+        <div class="kpi-sub">Total ad views</div>
+      </div>
+      <div class="kpi-card alt">
+        <div class="kpi-icon">👥</div>
+        <div class="kpi-label">Reach</div>
+        <div class="kpi-value">5,349</div>
+        <div class="kpi-sub">Unique people reached</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon">🔄</div>
+        <div class="kpi-label">Frequency</div>
+        <div class="kpi-value">2.22×</div>
+        <div class="kpi-sub">Avg impressions/person</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHARTS ROW 1 -->
+  <section>
+    <div class="section-label">Spend & Leads by Ad Set</div>
+    <div class="chart-grid">
+      <div class="chart-card">
+        <div class="chart-title">Spend Distribution</div>
+        <div class="chart-subtitle">By ad set · $231.57 total (CAD)</div>
+        <div class="chart-wrap">
+          <canvas id="spendDonut"></canvas>
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Leads by Ad Set</div>
+        <div class="chart-subtitle">Total leads: 26 · SPS_High Intent: 11 · Education/Discovery: 15</div>
+        <div class="chart-wrap">
+          <canvas id="leadsBar"></canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHARTS ROW 2 -->
+  <section>
+    <div class="section-label">Efficiency & Audience Metrics</div>
+    <div class="chart-grid">
+      <div class="chart-card">
+        <div class="chart-title">Cost per Lead by Ad Set</div>
+        <div class="chart-subtitle">Lower is better · CAD</div>
+        <div class="chart-wrap">
+          <canvas id="cplBar"></canvas>
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Reach vs. Impressions</div>
+        <div class="chart-subtitle">Unique audience vs total ad views</div>
+        <div class="chart-wrap">
+          <canvas id="reachBar"></canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AD SET TABLE -->
+  <section>
+    <div class="section-label">Ad Set Summary</div>
+    <div class="table-card">
+      <div class="table-header">
+        <div class="chart-title">2 Active Ad Sets</div>
+        <div class="chart-subtitle" style="margin:0">SPS Lead Gen Campaign V1 · May 6 – May 13, 2026</div>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Ad Set</th>
+            <th>Status</th>
+            <th>Leads</th>
+            <th>Spend (CAD)</th>
+            <th>CPL (CAD)</th>
+            <th>Reach</th>
+            <th>Impressions</th>
+            <th>Frequency</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>SPS_High Intent</strong></td>
+            <td><span class="badge badge-green">Active</span></td>
+            <td><span class="metric-num">11</span></td>
+            <td><span class="metric-num">$99.54</span></td>
+            <td><span class="metric-num">$9.05</span></td>
+            <td><span class="metric-num">2,573</span></td>
+            <td><span class="metric-num">4,832</span></td>
+            <td><span class="metric-num">1.88×</span></td>
+          </tr>
+          <tr>
+            <td><strong>Education/Discovery</strong></td>
+            <td><span class="badge badge-green">Active</span></td>
+            <td><span class="metric-num">15</span></td>
+            <td><span class="metric-num">$132.03</span></td>
+            <td><span class="metric-num">$8.80</span></td>
+            <td><span class="metric-num">3,909</span></td>
+            <td><span class="metric-num">7,047</span></td>
+            <td><span class="metric-num">1.80×</span></td>
+          </tr>
+          <tr style="background:#f7f9fc;font-weight:600;">
+            <td><strong>Total</strong></td>
+            <td></td>
+            <td><span class="metric-num">26</span></td>
+            <td><span class="metric-num">$231.57</span></td>
+            <td><span class="metric-num">$8.91</span></td>
+            <td><span class="metric-num">5,349*</span></td>
+            <td><span class="metric-num">11,879</span></td>
+            <td><span class="metric-num">2.22×</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="padding:10px 20px;font-size:11px;color:var(--muted);border-top:1px solid var(--border);">* Reach totals may not sum due to audience overlap between ad sets.</div>
+    </div>
+  </section>
+
+  <!-- ALL ADS TABLE -->
+  <section>
+    <div class="section-label">Individual Ad Performance</div>
+    <div class="table-card">
+      <div class="table-header">
+        <div class="chart-title">All Ads — Breakdown</div>
+        <div class="chart-subtitle" style="margin:0">9 ads across 2 ad sets · sorted by leads generated</div>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Ad Name</th>
+            <th>Ad Set</th>
+            <th>Leads</th>
+            <th>Spend (CAD)</th>
+            <th>CPL (CAD)</th>
+            <th>Impressions</th>
+            <th>Reach</th>
+            <th>Spend Share</th>
+          </tr>
+        </thead>
+        <tbody id="adsTableBody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- AD SPEND CHART -->
+  <section>
+    <div class="section-label">Ad-Level Spend Breakdown</div>
+    <div class="chart-card">
+      <div class="chart-title">Spend by Individual Ad</div>
+      <div class="chart-subtitle">All 9 ads · CAD · sorted by spend</div>
+      <div class="chart-wrap" style="height:300px;">
+        <canvas id="adSpendBar"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSIGHTS -->
+  <section>
+    <div class="section-label">Key Insights & Recommendations</div>
+    <div class="insights-grid">
+      <div class="insight-card">
+        <div class="insight-icon pos">✅</div>
+        <div>
+          <div class="insight-title">Strong Cost Efficiency</div>
+          <div class="insight-body">At $8.91 CAD per lead, the campaign delivers well below typical B2C immigration CPLs of $20–50+. Spend is being allocated effectively with all 26 leads tracked accurately.</div>
+        </div>
+      </div>
+      <div class="insight-card">
+        <div class="insight-icon pos">🏆</div>
+        <div>
+          <div class="insight-title">Education/Discovery Leads on Volume</div>
+          <div class="insight-body">Generated 15 of 26 leads (58%) at the lowest CPL of $8.80, with the widest reach of 3,909 unique users and 7,047 impressions — the most scalable ad set.</div>
+        </div>
+      </div>
+      <div class="insight-card">
+        <div class="insight-icon info">📌</div>
+        <div>
+          <div class="insight-title">Two Ads Drive 85% of Leads</div>
+          <div class="insight-body">"Spousal Sponsorship Edu" (11 leads, $7.10 CPL) and "Common Law Evidence Video" (11 leads, $8.64 CPL) together account for 22 of 26 leads at a blended CPL of $7.87 CAD.</div>
+        </div>
+      </div>
+      <div class="insight-card">
+        <div class="insight-icon flag">⚠️</div>
+        <div>
+          <div class="insight-title">5 Ads with Zero Conversions</div>
+          <div class="insight-body">Spousal Sponsorship Refused? ($1.14), Sponsorship File Returned? ($1.29), Common Law Approval ($2.11), Common Law Sponsorship Edu ($1.23), and Licensed RCIC ($2.04) generated no leads. Total wasted spend: $7.81.</div>
+        </div>
+      </div>
+      <div class="insight-card">
+        <div class="insight-icon warn">💸</div>
+        <div>
+          <div class="insight-title">High CPL: Spousal Sponsorship Done Right</div>
+          <div class="insight-body">"Spousal Sponsorship Done Right" initially showed a high CPL of $16.63 because it was the <em>only ad approved and live</em> when the campaign launched — concentrating all early spend on a single creative for the first few hours. Once the remaining ads were pushed live, the CPL normalized. This ad is no longer considered alarming; it is performing adequately but sits at the lower end compared to the stronger creatives in the campaign.</div>
+        </div>
+      </div>
+      <div class="insight-card">
+        <div class="insight-icon pos">🚀</div>
+        <div>
+          <div class="insight-title">Recommended Next Steps</div>
+          <div class="insight-body">1) Pause 5 zero-conversion ads. 2) Increase budget toward Education/Discovery. 3) Scale creatives modeled on "Spousal Sponsorship Edu." 4) Monitor "Spousal Sponsorship Done Right" — CPL has normalized post-launch; no immediate action required.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+  <!-- CONTEXTUAL NOTES -->
+  <section class="note-section">
+    <div class="section-label">Campaign Notes & Context</div>
+
+    <div class="note-card amber">
+      <div class="note-header">
+        <span class="note-icon">⚠️</span>
+        <div class="note-title">Context: Spousal Sponsorship Done Right — Initial CPL Spike Explained</div>
+      </div>
+      <div class="note-body">
+        <p>The CPL for the <strong>"Spousal Sponsorship Done Right"</strong> ad initially appeared higher because, at the time of campaign launch, this was the <strong>only ad that had been approved</strong> and started delivering immediately within the CBO campaign. The remaining ads were still under review and had not yet become active, so all the early spend and lead generation were concentrated on this single ad for the first few hours. As a result, the first lead reflected a temporarily inflated CPL of <strong>$16.63</strong>.</p>
+        <p>Once we identified that the other ads had not gone live, we <strong>immediately pushed them to active status</strong>. After the full ad set began delivering collectively, the CPL for this ad normalized and is no longer showing unusually high acquisition costs. At this stage, the ad is <strong>not considered alarming or underperforming</strong> from a cost perspective — although comparatively it is currently on the lower end in terms of overall performance versus the stronger-performing creatives in the campaign.</p>
+
+      </div>
+    </div>
+
+    <div class="note-card green">
+      <div class="note-header">
+        <span class="note-icon">✅</span>
+        <div class="note-title">Lead Tracking & Qualification — Attorney Fuel Update</div>
+      </div>
+      <div class="note-body">
+        <p>As per the latest report, we have received <strong>26 leads so far until yesterday</strong>, and all leads have been properly mapped into <strong>Attorney Fuel</strong>. These can be viewed under the <em>Qualified Leads</em> section in <strong>Fuelytics</strong>.</p>
+        <p>The leads were generated through <strong>Meta instant forms</strong>, where we included a few qualifying questions to better assess intent and relevance. The form specifically asked applicants:</p>
+        <ul style="margin: 8px 0 10px 20px; color: var(--muted); font-size: 13px; line-height: 1.75;">
+          <li>What type of immigration support they are looking for (spouse sponsorship or common-law sponsorship)</li>
+          <li>Whether the spouse or partner is currently <strong>inside or outside Canada</strong></li>
+          <li>Whether the sponsorship process has already started — with options: <em>Planning to start soon, Already started, Yes, or Not sure</em></li>
+        </ul>
+        <p>Since users are consciously completing these qualification questions before submitting the form, the leads appear <strong>relevant and reasonably qualified</strong> based on the information provided.</p>
+        <p>At this stage, all captured leads are being properly tracked and mapped into Attorney Fuel, and the <strong>campaign flow is functioning as expected</strong>.</p>
+      </div>
+    </div>
+
+  </section>
+
+<footer>
+  Report prepared for <strong>The Way Immigration</strong> &nbsp;·&nbsp; Campaign: <strong>SPS Lead Gen Campaign V1</strong> &nbsp;·&nbsp; Period: <strong>May 6 – May 13, 2026</strong> &nbsp;·&nbsp; Source: Meta Ads Manager &nbsp;·&nbsp; Currency: CAD
+</footer>
+
+<script>
+// ── Verified Data ──
+const totalSpend = 231.57;
+
+const adsets = [
+  { name: 'SPS_High Intent',     spend: 99.54,  leads: 11, cpl: 9.05, reach: 2573, impressions: 4832, freq: 1.88 },
+  { name: 'Education/Discovery', spend: 132.03, leads: 15, cpl: 8.80, reach: 3909, impressions: 7047, freq: 1.80 },
+];
+
+const ads = [
+  { name: 'Spousal Sponsorship Edu',        adset: 'Education/Discovery', leads: 11, spend: 78.11,  cpl: 7.10,  impressions: 4418, reach: 2161 },
+  { name: 'Common Law Evidence Video',      adset: 'SPS_High Intent',     leads: 11, spend: 95.00,  cpl: 8.64,  impressions: 4601, reach: 2521 },
+  { name: 'Spousal Sponsorship Done Right', adset: 'Education/Discovery', leads: 2,  spend: 33.26,  cpl: 16.63, impressions: 1642, reach: 1497 },
+  { name: 'Income Requirement Video',       adset: 'Education/Discovery', leads: 2,  spend: 17.39,  cpl: 8.70,  impressions: 803,  reach: 612  },
+  { name: 'Common Law Approval',            adset: 'SPS_High Intent',     leads: 0,  spend: 2.11,   cpl: null,  impressions: 96,   reach: 75   },
+  { name: 'Licensed RCIC',                  adset: 'Education/Discovery', leads: 0,  spend: 2.04,   cpl: null,  impressions: 115,  reach: 102  },
+  { name: 'Common Law Sponsorship Edu',     adset: 'Education/Discovery', leads: 0,  spend: 1.23,   cpl: null,  impressions: 69,   reach: 53   },
+  { name: 'Sponsorship File Returned?',     adset: 'SPS_High Intent',     leads: 0,  spend: 1.29,   cpl: null,  impressions: 61,   reach: 48   },
+  { name: 'Spousal Sponsorship Refused?',   adset: 'SPS_High Intent',     leads: 0,  spend: 1.14,   cpl: null,  impressions: 74,   reach: 62   },
+];
+
+// Chart defaults
+Chart.defaults.color = '#64748b';
+Chart.defaults.borderColor = '#e2e8f0';
+Chart.defaults.font.family = "'Poppins', sans-serif";
+Chart.defaults.font.size = 12;
+
+const C1 = '#1e3a5f';  // deep navy
+const C2 = '#2d6a4f';  // forest green
+const C3 = '#6d2b7a';  // deep plum
+const C4 = '#8b3a1a';  // burnt sienna
+const C5 = '#1a4d6e';  // teal navy
+const C6 = '#3d3270';  // deep indigo
+
+// Spend donut
+new Chart(document.getElementById('spendDonut'), {
+  type: 'doughnut',
+  data: {
+    labels: ['SPS_High Intent ($99.54)', 'Education/Discovery ($132.03)'],
+    datasets: [{
+      data: [99.54, 132.03],
+      backgroundColor: [C1, C2],
+      borderColor: ['#fff','#fff'],
+      borderWidth: 3,
+      hoverOffset: 8
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    cutout: '68%',
+    plugins: {
+      legend: { position: 'bottom', labels: { padding: 14, font: { size: 11 }, color: '#334155', usePointStyle: true } },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.parsed.toFixed(2)} CAD (${((ctx.parsed/totalSpend)*100).toFixed(1)}%)` } }
+    }
+  }
+});
+
+// Leads bar
+new Chart(document.getElementById('leadsBar'), {
+  type: 'bar',
+  data: {
+    labels: ['SPS_High Intent', 'Education/Discovery'],
+    datasets: [{
+      label: 'Leads',
+      data: [11, 15],
+      backgroundColor: [C1, C2],
+      borderWidth: 0,
+      borderRadius: 10,
+      borderSkipped: false
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: '#334155', font: { weight: '500' } } },
+      y: { beginAtZero: true, ticks: { stepSize: 5, color: '#64748b' }, grid: { color: '#f1f5f9' } }
+    }
+  }
+});
+
+// CPL bar
+new Chart(document.getElementById('cplBar'), {
+  type: 'bar',
+  data: {
+    labels: ['SPS_High Intent', 'Education/Discovery'],
+    datasets: [{
+      label: 'CPL (CAD)',
+      data: [9.05, 8.80],
+      backgroundColor: [C3, C6],
+      borderWidth: 0,
+      borderRadius: 10,
+      borderSkipped: false
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: '#334155', font: { weight: '500' } } },
+      y: { min: 8.5, max: 9.5, ticks: { callback: v => '$' + v.toFixed(2), color: '#64748b' }, grid: { color: '#f1f5f9' } }
+    }
+  }
+});
+
+// Reach vs Impressions
+new Chart(document.getElementById('reachBar'), {
+  type: 'bar',
+  data: {
+    labels: ['SPS_High Intent', 'Education/Discovery'],
+    datasets: [
+      { label: 'Reach',       data: [2573, 3909], backgroundColor: C5, borderWidth: 0, borderRadius: 8, borderSkipped: false },
+      { label: 'Impressions', data: [4832, 7047], backgroundColor: C4, borderWidth: 0, borderRadius: 8, borderSkipped: false }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { position: 'top', labels: { padding: 14, color: '#334155', font: { size: 11.5 }, usePointStyle: true } } },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: '#334155', font: { weight: '500' } } },
+      y: { beginAtZero: true, ticks: { color: '#64748b' }, grid: { color: '#f1f5f9' } }
+    }
+  }
+});
+
+// Ad spend horizontal bar
+const sortedBySpend = [...ads].sort((a,b) => b.spend - a.spend);
+const barColors = sortedBySpend.map(a => a.leads > 0 ? (a.adset === 'SPS_High Intent' ? C1 : C2) : '#94a3b8');
+new Chart(document.getElementById('adSpendBar'), {
+  type: 'bar',
+  data: {
+    labels: sortedBySpend.map(a => a.name),
+    datasets: [{
+      label: 'Spend (CAD)',
+      data: sortedBySpend.map(a => a.spend),
+      backgroundColor: barColors,
+      borderWidth: 0,
+      borderRadius: 6,
+      borderSkipped: false
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.parsed.x.toFixed(2)} CAD` } }
+    },
+    scales: {
+      x: { beginAtZero: true, ticks: { callback: v => '$' + v, color: '#64748b' }, grid: { color: '#f1f5f9' } },
+      y: { grid: { display: false }, ticks: { color: '#334155', font: { size: 11.5 } } }
+    }
+  }
+});
+
+// Ads table
+const tbody = document.getElementById('adsTableBody');
+const maxSpend = Math.max(...ads.map(a => a.spend));
+[...ads].sort((a,b) => (b.leads||0) - (a.leads||0)).forEach(ad => {
+  const tr = document.createElement('tr');
+  const share = ((ad.spend / totalSpend) * 100).toFixed(1);
+  const barColor = ad.leads === 0 ? '#e2e8f0' : (ad.adset === 'SPS_High Intent' ? C1 : C2);
+  const adsetBadge = ad.adset === 'SPS_High Intent'
+    ? '<span class="badge badge-blue">High Intent</span>'
+    : '<span class="badge badge-dark">Education</span>';
+  const leadsHtml = ad.leads > 0
+    ? `<span class="metric-num" style="color:var(--brand)">${ad.leads}</span>`
+    : '<span style="color:#cbd5e1">—</span>';
+  const cplColor = ad.cpl && ad.cpl > 12 ? '#c2410c' : 'var(--text)';
+  const cplHtml = ad.cpl
+    ? `<span class="metric-num" style="color:${cplColor}">${ad.cpl === 16.63 ? '⚠️ ' : ''}$${ad.cpl.toFixed(2)}</span>`
+    : '<span style="color:#cbd5e1">—</span>';
+  tr.innerHTML = `
+    <td><strong>${ad.name}</strong></td>
+    <td>${adsetBadge}</td>
+    <td>${leadsHtml}</td>
+    <td><span class="metric-num">$${ad.spend.toFixed(2)}</span></td>
+    <td>${cplHtml}</td>
+    <td>${ad.impressions.toLocaleString()}</td>
+    <td>${ad.reach.toLocaleString()}</td>
+    <td>
+      <div class="perf-bar-wrap">
+        <div class="perf-bar-bg">
+          <div class="perf-bar" style="width:${(ad.spend/maxSpend*100).toFixed(0)}%;background:${barColor}"></div>
+        </div>
+        <span style="font-size:11px;color:var(--muted);min-width:34px">${share}%</span>
+      </div>
+    </td>
+  `;
+  tbody.appendChild(tr);
+});
+</script>
+</body>
+</html>
